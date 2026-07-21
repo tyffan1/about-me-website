@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>tyffan1 — Fullstack-розробник</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="progress-bar" style="background:#6C8CFF;width:0%"></div>
+
+<nav id="navbar">
+  <div class="container">
+    <a href="#hero" class="nav-logo">~/portfolio</a>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#about" onclick="closeMenu()"><span class="nav-num">01.</span> Про мене</a></li>
+      <li><a href="#stack" onclick="closeMenu()"><span class="nav-num">02.</span> Стек</a></li>
+      <li><a href="#projects" onclick="closeMenu()"><span class="nav-num">03.</span> Проєкти</a></li>
+      <li><a href="#contact" onclick="closeMenu()"><span class="nav-num">04.</span> Контакти</a></li>
+      <li><a href="#contact" class="nav-cta-mob" onclick="closeMenu()">Зв'язатися →</a></li>
+    </ul>
+    <a href="#contact" class="nav-cta">Зв'язатися →</a>
+    <button class="burger" id="burgerBtn" aria-label="Меню" onclick="toggleMenu()">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<section class="hero" id="hero">
+  <div class="hero-bg"></div>
+  <div class="container">
+    <div class="hero-left">
+      <div class="hero-eyebrow">whoami</div>
+      <h1><span class="hero-name">Привіт, я Семен</span><br><span class="accent">Fullstack-розробник</span></h1>
+      <p class="hero-desc">
+        Створюю сучасні веб-додатки з фокусом на продуктивність, 
+        Rust, Python, Node.js, React, TypeScript — мій джентльменський набір.
+      </p>
+      <div class="hero-btns">
+        <a href="#projects" class="btn btn-primary">Дивитися проєкти →</a>
+        <a href="#contact" class="btn btn-outline">Написати мені</a>
+      </div>
+    </div>
+    <div>
+      <div class="terminal-wrapper">
+        <div class="terminal">
+          <div class="terminal-header">
+            <div class="terminal-dots"><span></span><span></span><span></span></div>
+            <span class="terminal-title">about.sh</span>
+          </div>
+          <div class="terminal-body" id="heroTerminal">
+            <div class="photo-section">
+              <img src="img/my-photo.png" alt="Фото" onerror="this.style.display='none';document.getElementById('photoFallback').style.display='flex'">
+              <div class="photo-placeholder" id="photoFallback">
+                <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
+                <span>Встав сюди своє PNG-фото без фону</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="about">
+  <div class="container">
+    <div class="section-label">01. Про мене</div>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Привіт! Мене звати Семен, я fullstack-розробник з досвідом створення 
+          сучасних веб-додатків. Спеціалізуюся на Rust, Python, Node.js, React та ТypeScript, також
+          цікавлюся DevOps
+        </p>
+        <p>
+          За моїми плечима декілька комерційних проєктів та pet-проєктів — 
+          від невеликих лендингів до складних дашбордів з real-time оновленнями. 
+          Постійно вивчаю нові технології та застосовую їх на практиці.
+        </p>
+      </div>
+      <div class="profile-json">
+        <div class="terminal-header">
+          <div class="terminal-dots"><span></span><span></span><span></span></div>
+          <span class="terminal-title">profile.json</span>
+        </div>
+        <pre>{
+  <span class="key">"name"</span>: <span class="string">"Семен"</span>,
+  <span class="key">"role"</span>: <span class="string">"Fullstack-розробник"</span>,
+  <span class="key">"location"</span>: <span class="string">"Київ"</span>,
+  <span class="key">"languages"</span>: [
+    <span class="string">"Rust"</span>, <span class="string">"Python"</span>,
+    <span class="string">"Node.js"</span>, <span class="string">"TypeScript"</span>
+  ],
+  <span class="key">"interests"</span>: [
+    <span class="string">"Backend"</span>,
+    <span class="string">"Frontend"</span>,
+    <span class="string">"DevOps"</span>
+  ],
+  <span class="key">"currentFocus"</span>: <span class="string">"Сучасні веб-додатки"</span>
+}</pre>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="stack">
+  <div class="container">
+    <div class="section-label">02. Стек</div>
+    <h2 class="section-title">Технології</h2>
+    <p class="section-sub" style="margin-bottom:40px">
+      Інструменти, з якими я працюю щодня та в pet-проєктах.
+    </p>
+    <div class="stack-grid">
+      <div class="stack-cat">
+        <h3>Frontend</h3>
+        <div class="stack-chips">
+          <span class="chip">React</span>
+          <span class="chip">Vue</span>
+          <span class="chip">TypeScript</span>
+          <span class="chip">HTML/CSS</span>
+          <span class="chip">Next.js</span>
+          <span class="chip">Tailwind</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <h3>Backend</h3>
+        <div class="stack-chips">
+          <span class="chip">Node.js</span>
+          <span class="chip">Python</span>
+          <span class="chip">Rust</span>
+          <span class="chip">PostgreSQL</span>
+          <span class="chip">Redis</span>
+          <span class="chip">GraphQL</span>
+        </div>
+      </div>
+      <div class="stack-cat">
+        <h3>Інструменти</h3>
+        <div class="stack-chips">
+          <span class="chip">Docker</span>
+          <span class="chip">Git</span>
+          <span class="chip">GitHub Actions</span>
+          <span class="chip">AWS</span>
+          <span class="chip">Figma</span>
+          <span class="chip">VSCode</span>
+          <span class="chip">Vim</span>
+          <span class="chip">Claude Code</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section" id="projects">
+  <div class="container">
+    <div class="section-label">03. Проєкти</div>
+    <h2 class="section-title">Вибрані роботи</h2>
+    <p class="section-sub" style="margin-bottom:40px">
+      Проєкти, якими я пишаюся. Від ідеї до продакшену.
+    </p>
+    <div class="projects-grid">
+      <div class="project-card">
+        <div class="project-thumb">
+          <div class="thumb-bg"></div>
+          <img src="img/lumen.avif" alt="lumen" class="thumb-img">
+        </div>
+        <div class="project-body">
+          <div class="project-status"><span class="dot prod"></span>у продакшені</div>
+          <h3>Lumen</h3>
+          <p>Додаток відстежує, якими програмами ви користуєтеся, і відображає статистику використання у компактному спливаючому вікні. Без хмари, без телеметрії — все зберігається локально в SQLite</p>
+          <div class="project-tags">
+            <span>Rust</span><span>Shell</span><span>SQLite</span>  
+          </div>
+          <a href="https://github.com/tyffan1/lumen" target="_blank" class="project-link">
+            Дивитися проєкт 
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb">
+          <div class="thumb-bg"></div>
+          <img src="img/disk-map.avif" alt="lumen" class="thumb-img">
+        </div>
+        <div class="project-body">
+          <div class="project-status"><span class="dot prod"></span>у продакшені</div>
+          <h3>Disk Map</h3>
+          <p>Мапа використання диска з можливістю фільтрації та аналізу використання</p>
+          <div class="project-tags">
+            <span>Rust</span>
+          </div>
+          <a href="https://github.com/tyffan1/disk-map" target="_blank" class="project-link">
+            Дивитися проєкт 
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb">
+          <div class="thumb-bg"></div>
+          <img src="img/kore.avif" alt="lumen" class="thumb-img">
+        </div>
+        <div class="project-body">
+          <div class="project-status"><span class="dot dev"></span>у розробці</div>
+          <h3>Kore</h3>
+          <p>Браузер натхненний Firefox-ом</p>
+          <div class="project-tags">
+            <span>Rust</span><span>JavaScript</span><span>HTML</span><span>CSS</span><span>WGSL</span><span>Python</span>
+            </span>
+          </div>
+          <a href="https://github.com/tyffan1/kore" target="_blank" class="project-link">
+            Дивитися проєкт 
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+
+      <div class="project-card">
+        <div class="project-thumb">
+          <div class="thumb-bg"></div>
+          <img src="img/flowers-website.avif" alt="lumen" class="thumb-img">
+        </div>
+        <div class="project-body">
+          <div class="project-status"><span class="dot archive"></span>у архіві</div>
+          <h3>Flowers Website</h3>
+          <p>Веб-сайт для продажу квітів з інтеграцією з системою оплати</p>
+          <div class="project-tags">
+            <span>Python</span><span>JavaScript</span><span>SQLite</span><span>HTML</span><span>CSS</span>
+          </div>
+          <a href="https://github.com/tyffan1/flowers_website " target="_blank" class="project-link">
+            Дивитися проєкт 
+            <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="section contact" id="contact">
+  <div class="container">
+    <div class="section-label">04. Контакти</div>
+    <h2 class="section-title">Зв'яжіться зі мною</h2>
+    <p class="section-sub">
+      Відкритий до пропозицій та нових знайомств. Напишіть мені в Telegram 
+      або запустіть термінал нижче.
+    </p>
+
+    <div class="contact-terminal" id="contactTerminal">
+      <div class="terminal-header">
+        <div class="terminal-dots"><span></span><span></span><span></span></div>
+        <span class="terminal-title">contact.sh</span>
+      </div>
+      <div class="contact-output" id="contactOutput">
+      </div>
+      <div class="contact-input-area">
+        <span class="prompt-sign">$</span>
+        <input type="text" id="contactInput" placeholder="введи команду..." autocomplete="off" spellcheck="false>
+      </div>
+    </div>
+
+    <div class="contact-links">
+      <a href="https://github.com/tyffan1" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
+        GitHub
+      </a>
+      <a href="https://t.me/tyffan1" target="_blank" rel="noopener">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
+        Telegram
+      </a>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="container">
+    <p>&copy; <span id="year"></span> Семен. Зроблено з нуля на чистому HTML/CSS/JS.</p>
+  </div>
+</footer>
+
+<script src="script.js" defer></script>
+</body>
+</html>
