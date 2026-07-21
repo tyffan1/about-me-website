@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'self' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data:; script-src 'self'; connect-src 'none'">
 <title>tyffan1 — Fullstack-розробник</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -11,20 +12,20 @@
 </head>
 <body>
 
-<div id="progress-bar" style="background:#6C8CFF;width:0%"></div>
+<div id="progress-bar"></div>
 
 <nav id="navbar">
   <div class="container">
     <a href="#hero" class="nav-logo">~/portfolio</a>
     <ul class="nav-links" id="navLinks">
-      <li><a href="#about" onclick="closeMenu()"><span class="nav-num">01.</span> Про мене</a></li>
-      <li><a href="#stack" onclick="closeMenu()"><span class="nav-num">02.</span> Стек</a></li>
-      <li><a href="#projects" onclick="closeMenu()"><span class="nav-num">03.</span> Проєкти</a></li>
-      <li><a href="#contact" onclick="closeMenu()"><span class="nav-num">04.</span> Контакти</a></li>
-      <li><a href="#contact" class="nav-cta-mob" onclick="closeMenu()">Зв'язатися →</a></li>
+      <li><a href="#about"><span class="nav-num">01.</span> Про мене</a></li>
+      <li><a href="#stack"><span class="nav-num">02.</span> Стек</a></li>
+      <li><a href="#projects"><span class="nav-num">03.</span> Проєкти</a></li>
+      <li><a href="#contact"><span class="nav-num">04.</span> Контакти</a></li>
+      <li><a href="#contact" class="nav-cta-mob">Зв'язатися →</a></li>
     </ul>
     <a href="#contact" class="nav-cta">Зв'язатися →</a>
-    <button class="burger" id="burgerBtn" aria-label="Меню" onclick="toggleMenu()">
+    <button class="burger" id="burgerBtn" aria-label="Меню">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -175,7 +176,7 @@
           <div class="project-tags">
             <span>Rust</span><span>Shell</span><span>SQLite</span>  
           </div>
-          <a href="https://github.com/tyffan1/lumen" target="_blank" class="project-link">
+          <a href="https://github.com/tyffan1/lumen" target="_blank" rel="noopener noreferrer" class="project-link">
             Дивитися проєкт 
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -194,7 +195,7 @@
           <div class="project-tags">
             <span>Rust</span>
           </div>
-          <a href="https://github.com/tyffan1/disk-map" target="_blank" class="project-link">
+          <a href="https://github.com/tyffan1/disk-map" target="_blank" rel="noopener noreferrer" class="project-link">
             Дивитися проєкт 
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -214,7 +215,7 @@
             <span>Rust</span><span>JavaScript</span><span>HTML</span><span>CSS</span><span>WGSL</span><span>Python</span>
             </span>
           </div>
-          <a href="https://github.com/tyffan1/kore" target="_blank" class="project-link">
+          <a href="https://github.com/tyffan1/kore" target="_blank" rel="noopener noreferrer" class="project-link">
             Дивитися проєкт 
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -233,7 +234,7 @@
           <div class="project-tags">
             <span>Python</span><span>JavaScript</span><span>SQLite</span><span>HTML</span><span>CSS</span>
           </div>
-          <a href="https://github.com/tyffan1/flowers_website " target="_blank" class="project-link">
+          <a href="https://github.com/tyffan1/flowers_website" target="_blank" rel="noopener noreferrer" class="project-link">
             Дивитися проєкт 
             <svg viewBox="0 0 24 24"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
           </a>
@@ -261,16 +262,16 @@
       </div>
       <div class="contact-input-area">
         <span class="prompt-sign">$</span>
-        <input type="text" id="contactInput" placeholder="введи команду..." autocomplete="off" spellcheck="false>
+        <input type="text" id="contactInput" placeholder="введи команду..." autocomplete="off" spellcheck="false">
       </div>
     </div>
 
     <div class="contact-links">
-      <a href="https://github.com/tyffan1" target="_blank" rel="noopener">
+      <a href="https://github.com/tyffan1" target="_blank" rel="noopener noreferrer">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22"/></svg>
         GitHub
       </a>
-      <a href="https://t.me/tyffan1" target="_blank" rel="noopener">
+      <a href="https://t.me/tyffan1" target="_blank" rel="noopener noreferrer">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m22 2-7 20-4-9-9-4Z"/><path d="M22 2 11 13"/></svg>
         Telegram
       </a>

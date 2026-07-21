@@ -1,3 +1,6 @@
+/* ===== Year ===== */
+document.getElementById('year').textContent = new Date().getFullYear();
+
 /* ===== Reduced motion ===== */
 const isReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -167,6 +170,12 @@ navLinks?.querySelectorAll('a').forEach(a => {
   let history = [];
   let histIdx = -1;
 
+  function esc(t) {
+    const d = document.createElement('div');
+    d.textContent = t;
+    return d.innerHTML;
+  }
+
   const help = [
     {cmd:'/help',desc:'список команд'},
     {cmd:'/about',desc:'скрол до "Про мене"'},
@@ -199,7 +208,7 @@ navLinks?.querySelectorAll('a').forEach(a => {
     if (e.currentTarget === input) historyPush(val);
     input.value = '';
 
-    print('<span class="prompt">$ </span><span class="cmd">' + escape(val) + '</span>');
+    print('<span class="prompt">$ </span><span class="cmd">' + esc(val) + '</span>');
 
     const v = val.replace(/^\//, '').toLowerCase();
 
@@ -211,9 +220,9 @@ navLinks?.querySelectorAll('a').forEach(a => {
       about() { document.getElementById('about')?.scrollIntoView({behavior:'smooth'}); },
       stack() { document.getElementById('stack')?.scrollIntoView({behavior:'smooth'}); },
       projects() { document.getElementById('projects')?.scrollIntoView({behavior:'smooth'}); },
-      mail() { window.open('mailto:your@email.com','_blank'); },
-      github() { window.open('https://github.com','_blank'); },
-      telegram() { window.open('https://t.me','_blank'); },
+      mail() { window.open('mailto:your@email.com','_blank','noopener'); },
+      github() { window.open('https://github.com','_blank','noopener'); },
+      telegram() { window.open('https://t.me','_blank','noopener'); },
       clear() { output.innerHTML = ''; },
       whoami() { print('  <span class="output">Семен — Fullstack-розробник</span>'); },
     };
