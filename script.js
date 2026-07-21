@@ -1,6 +1,12 @@
 /* ===== Year ===== */
 document.getElementById('year').textContent = new Date().getFullYear();
 
+/* ===== Photo fallback ===== */
+document.getElementById('heroPhoto')?.addEventListener('error', function() {
+  this.style.display = 'none';
+  document.getElementById('photoFallback').style.display = 'flex';
+});
+
 /* ===== Reduced motion ===== */
 const isReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
@@ -166,7 +172,6 @@ navLinks?.querySelectorAll('a').forEach(a => {
   const input = document.getElementById('contactInput');
   const term = document.getElementById('contactTerminal');
 
-  const cmds = ['/help','/about','/stack','/projects','/mail','/github','/telegram','/clear','whoami'];
   let history = [];
   let histIdx = -1;
 
@@ -205,7 +210,7 @@ navLinks?.querySelectorAll('a').forEach(a => {
     if (e.key !== 'Enter') return;
     const val = input.value.trim();
     if (!val) return;
-    if (e.currentTarget === input) historyPush(val);
+    historyPush(val);
     input.value = '';
 
     print('<span class="prompt">$ </span><span class="cmd">' + esc(val) + '</span>');
@@ -227,7 +232,7 @@ navLinks?.querySelectorAll('a').forEach(a => {
       whoami() { print('  <span class="output">Семен — Fullstack-розробник</span>'); },
     };
 
-    (map[v] || (() => print('  <span class="output">❌ Невідома команда. Напиши /help</span>')))().call?.();
+    (map[v] || (() => print('  <span class="output">❌ Невідома команда. Напиши /help</span>')))();
   }
 
   function historyPush(val) {

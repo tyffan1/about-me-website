@@ -58,6 +58,7 @@ img{max-width:100%;display:block}
   max-width:560px;
   line-height:1.7;
 }
+.section-sub--gap{margin-bottom:40px}
 
 /* Progress Bar */
 #progress-bar{
@@ -152,9 +153,9 @@ nav .container{
   border-radius:2px;
   transition:transform .3s,opacity .3s;
 }
-.burger.active span:nth-child(1){transform:translateY(7px) rotate(45deg)}
-.burger.active span:nth-child(2){opacity:0}
-.burger.active span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
+.burger.open span:nth-child(1){transform:translateY(7px) rotate(45deg)}
+.burger.open span:nth-child(2){opacity:0}
+.burger.open span:nth-child(3){transform:translateY(-7px) rotate(-45deg)}
 
 /* Hero */
 .hero{
@@ -266,6 +267,13 @@ nav .container{
 /* Terminal photo inside terminal-body */
 .terminal-body{
   position:relative;
+  padding:24px;
+  padding-right:calc(38% + 24px);
+  font-family:var(--font-mono);
+  font-size:15px;
+  line-height:1.7;
+  min-height:350px;
+  overflow-y:auto;
 }
 .photo-section{
   position:absolute;
@@ -330,15 +338,6 @@ nav .container{
   color:var(--text-dim);
   margin-left:4px;
 }
-.terminal-body{
-  padding:24px;
-  padding-right:calc(38% + 24px);
-  font-family:var(--font-mono);
-  font-size:15px;
-  line-height:1.7;
-  min-height:350px;
-  overflow-y:auto;
-}
 .terminal-body .line{white-space:pre-wrap;min-height:20px}
 .terminal-body .prompt{color:var(--ok)}
 .terminal-body .cmd{color:var(--text)}
@@ -357,8 +356,6 @@ nav .container{
   vertical-align:text-bottom;
 }
 @keyframes blink{50%{opacity:0}}
-
-/* About */
 .about-grid{
   display:grid;
   grid-template-columns:1fr 1fr;
@@ -389,11 +386,6 @@ nav .container{
 }
 .profile-json pre .key{color:var(--accent)}
 .profile-json pre .string{color:var(--ok)}
-.profile-json pre .number{color:var(--warn)}
-.profile-json pre .bool{color:var(--warn)}
-.profile-json pre .null{color:var(--warn)}
-.profile-json pre .bracket{color:var(--text-dim)}
-.profile-json pre .comma{color:var(--text-dim)}
 
 /* Stack */
 .stack-grid{
