@@ -1,48 +1,33 @@
-/* ===== Year ===== */
 document.getElementById('year').textContent = new Date().getFullYear();
-
-/* ===== Photo fallback ===== */
 document.getElementById('heroPhoto')?.addEventListener('error', function() {
   this.style.display = 'none';
   document.getElementById('photoFallback').style.display = 'flex';
 });
-
-/* ===== Reduced motion ===== */
 const isReduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-/* ===== Nav hide/show on scroll ===== */
 const nav = document.getElementById('navbar');
 const bar = document.getElementById('progress-bar');
 let lastScroll = 0;
-
 function onScroll() {
   const y = window.scrollY;
   const atTop = y < 10;
   const goingDown = y > lastScroll && !atTop;
-
   nav.classList.toggle('scrolled', !atTop);
   nav.classList.toggle('hidden', goingDown && y > 80);
-
   if (bar) {
     const max = document.documentElement.scrollHeight - window.innerHeight;
     bar.style.width = max > 0 ? (y / max * 100) + '%' : '0%';
   }
-
   lastScroll = y;
 }
-
 if (!isReduced) {
   window.addEventListener('scroll', onScroll, {passive:true});
   onScroll();
 } else {
   document.addEventListener('DOMContentLoaded', () => {
-    const y = window.scrollY;
-    nav.classList.toggle('scrolled', y > 10);
+    nav.classList.toggle('scrolled', window.scrollY > 10);
     if (bar) bar.style.width = '0%';
   });
 }
-
-/* ===== Scroll ===== */
 document.querySelectorAll('a[href^="#"]').forEach(a => {
   a.addEventListener('click', e => {
     const id = a.getAttribute('href').slice(1);
@@ -50,66 +35,46 @@ document.querySelectorAll('a[href^="#"]').forEach(a => {
     if (el) { e.preventDefault(); el.scrollIntoView({behavior:'smooth'}); }
   });
 });
-
-/* ===== Burger ===== */
 const burger = document.getElementById('burgerBtn');
 const navLinks = document.getElementById('navLinks');
-const navCta = document.querySelector('.nav-cta');
 burger?.addEventListener('click', () => {
   navLinks.classList.toggle('open');
-  navCta?.classList.toggle('open');
   burger.classList.toggle('open');
 });
 navLinks?.querySelectorAll('a').forEach(a => {
   a.addEventListener('click', () => {
     navLinks.classList.remove('open');
-    navCta?.classList.remove('open');
     burger.classList.remove('open');
   });
 });
-
-/* ===== Hero terminal ===== */
 (function() {
-  const term = document.getElementById('heroTerminal');
-  const photo = term.querySelector('.photo-section');
-
+  const log = document.getElementById('heroLog');
+  if (!log) return;
   const commands = [
-    { cmd:'whoami', out:'Семен — Fullstack-розробник' },
-    { cmd:'cat focus.txt', out:'Створення сучасних веб-додатків' },
-    { cmd:'status --current', out:'✓ Відкритий до нових проєктів' },
-    { cmd:'stack', out:'Rust · Python  · TypeScript · React · Node.js' },
-    { cmd:'ls projects', out:['kore/', 'lumen/', 'disk-map/', 'porfolio/', 'flowers-website/'] },
-    { cmd:'uptime', out:'Coding for 5+ years' },
+    { cmd:'whoami', out:'Семен — системні інструменти × Fullstack' },
+    { cmd:'cat фокус.txt', out:'Rust · системні утиліти · сучасний веб' },
+    { cmd:'stack --list', out:'Rust · TypeScript · React · Python · SQLite' },
+    { cmd:'ls projects/', out:['lumen/  disk-map/  kore/  (архів: flowers-website/)'] },
+    { cmd:'status', out:'✓ Відкритий до співпраці — пиши в contact.sh' },
   ];
-
-  let idx = 0;
-  let ch = 0;
-  let phase = 'idle';     // idle → typing → output → idle → …
-  let promptLine = null;  // current .line with $
-
-  function prepend(el) { term.insertBefore(el, photo); }
-
+  let idx = 0, ch = 0, phase = 'idle', promptLine = null;
   function line(html) {
     const d = document.createElement('div');
     d.className = 'line';
     d.innerHTML = html;
-    prepend(d);
+    log.appendChild(d);
     return d;
   }
-
   function addPrompt(withCursor) {
     const html = withCursor
       ? '<span class="prompt">$ </span><span class="cmd"></span><span class="terminal-cursor"></span>'
       : '<span class="prompt">$ </span><span class="cmd"></span>';
     promptLine = line(html);
   }
-
   function addOutput(text) {
     const items = Array.isArray(text) ? text : [text];
     items.forEach(t => line('<span class="output">' + t + '</span>'));
   }
-
-  // instant for reduced motion
   if (isReduced) {
     addPrompt();
     commands.forEach(c => {
@@ -118,142 +83,151 @@ navLinks?.querySelectorAll('a').forEach(a => {
       addPrompt();
     });
     promptLine.innerHTML += '<span class="terminal-cursor"></span>';
-    term.scrollTop = term.scrollHeight;
+    log.scrollTop = log.scrollHeight;
     return;
   }
-
-  // ── animation loop ──
-  addPrompt(true);  // first $█
-  term.scrollTop = term.scrollHeight;
-
+  addPrompt(true);
+  log.scrollTop = log.scrollHeight;
   function tick() {
-    term.scrollTop = term.scrollHeight;
-
+    log.scrollTop = log.scrollHeight;
     if (phase === 'idle') {
-      // cursor blinks on current prompt; start typing next command
-      if (idx >= commands.length) return;       // all done
+      if (idx >= commands.length) return;
       promptLine.querySelector('.terminal-cursor')?.remove();
       phase = 'typing';
       tick();
       return;
     }
-
     if (phase === 'typing') {
       if (idx >= commands.length) return;
       const c = commands[idx].cmd;
       if (ch < c.length) {
-        promptLine.querySelector('.cmd').textContent += c[ch];
-        ch++;
-        setTimeout(tick, 60 + Math.random() * 50);
+        promptLine.querySelector('.cmd').textContent += c[ch++];
+        setTimeout(tick, 55 + Math.random() * 55);
       } else {
         phase = 'output';
-        setTimeout(tick, 400);
+        setTimeout(tick, 380);
       }
       return;
     }
-
     if (phase === 'output') {
       if (idx >= commands.length) return;
       addOutput(commands[idx].out);
-      idx++;
-      ch = 0;
-      phase = 'idle';
-      addPrompt(true);                         // next $█
-      setTimeout(tick, 1000);
+      idx++; ch = 0; phase = 'idle';
+      addPrompt(true);
+      setTimeout(tick, 900);
     }
   }
-
-  setTimeout(tick, 1000);
+  setTimeout(tick, 900);
 })();
 
-/* ===== Contact terminal ===== */
 (function() {
   const output = document.getElementById('contactOutput');
   const input = document.getElementById('contactInput');
   const term = document.getElementById('contactTerminal');
-
-  let history = [];
-  let histIdx = -1;
-
-  function esc(t) {
-    const d = document.createElement('div');
-    d.textContent = t;
-    return d.innerHTML;
+  const hints = document.getElementById('contactHints');
+  if (!output || !input) return;
+  let history = [], histIdx = -1;
+  function esc(t){ const d=document.createElement('div'); d.textContent=t; return d.innerHTML; }
+  function print(html){ const d=document.createElement('div'); d.className='line'; d.innerHTML=html; output.appendChild(d); output.scrollTop=output.scrollHeight; }
+  const LINKS = {
+    telegram: 'https://t.me/tyffan1',
+    github: 'https://github.com/tyffan1',
+    email: 'mailto:tyffan@example.com',
+  };
+  function help(){
+    print('  <span class="output">Доступні команди:</span>');
+    [['telegram','відкрити Telegram'],['email','написати на пошту'],['github','відкрити GitHub'],['help','цей список'],['clear','очистити']].forEach(([c,d])=>{
+      print('  <span class="output"><span class="accent">'+c+'</span> — '+d+'</span>');
+    });
+    print('  <span class="output hint" style="opacity:.6">також: /telegram /mail /github</span>');
   }
-
-  const help = [
-    {cmd:'/help',desc:'список команд'},
-    {cmd:'/about',desc:'скрол до "Про мене"'},
-    {cmd:'/stack',desc:'скрол до "Стек"'},
-    {cmd:'/projects',desc:'скрол до "Проєкти"'},
-    {cmd:'/mail',desc:'відкрити пошту'},
-    {cmd:'/github',desc:'відкрити GitHub'},
-    {cmd:'/telegram',desc:'відкрити Telegram'},
-    {cmd:'/clear',desc:'очистити вивід'},
-    {cmd:'whoami',desc:"ім'я та роль"},
-  ];
-
-  function print(text, cls) {
-    const d = document.createElement('div');
-    d.className = 'line' + (cls ? ' ' + cls : '');
-    d.innerHTML = text;
-    output.appendChild(d);
-    output.scrollTop = output.scrollHeight;
-  }
-
-  // initial help
-  print('<span class="prompt">$ </span><span class="cmd">/help</span>');
-  print('  <span class="output">Доступні команди:</span>');
-  help.forEach(h => print('  <span class="output">' + h.cmd + ' — ' + h.desc + '</span>'));
-
-  function handle(e) {
-    if (e.key !== 'Enter') return;
-    const val = input.value.trim();
-    if (!val) return;
-    historyPush(val);
-    input.value = '';
-
-    print('<span class="prompt">$ </span><span class="cmd">' + esc(val) + '</span>');
-
-    const v = val.replace(/^\//, '').toLowerCase();
-
-    const map = {
-      help() {
-        print('  <span class="output">Доступні команди:</span>');
-        help.forEach(h => print('  <span class="output">' + h.cmd + ' — ' + h.desc + '</span>'));
-      },
-      about() { document.getElementById('about')?.scrollIntoView({behavior:'smooth'}); },
-      stack() { document.getElementById('stack')?.scrollIntoView({behavior:'smooth'}); },
-      projects() { document.getElementById('projects')?.scrollIntoView({behavior:'smooth'}); },
-      mail() { window.open('mailto:your@email.com','_blank','noopener'); },
-      github() { window.open('https://github.com','_blank','noopener'); },
-      telegram() { window.open('https://t.me','_blank','noopener'); },
-      clear() { output.innerHTML = ''; },
-      whoami() { print('  <span class="output">Семен — Fullstack-розробник</span>'); },
-    };
-
-    (map[v] || (() => print('  <span class="output">❌ Невідома команда. Напиши /help</span>')))();
-  }
-
-  function historyPush(val) {
-    history.push(val);
-    if (history.length > 50) history.shift();
-    histIdx = history.length;
-  }
-
-  input.addEventListener('keydown', e => {
-    if (e.key === 'ArrowUp') {
-      e.preventDefault();
-      if (histIdx > 0) { histIdx--; input.value = history[histIdx]; }
-    } else if (e.key === 'ArrowDown') {
-      e.preventDefault();
-      if (histIdx < history.length - 1) { histIdx++; input.value = history[histIdx]; }
-      else { histIdx = history.length; input.value = ''; }
+  print('<span class="prompt">$</span> <span class="cmd">help</span>');
+  help();
+  function handle(val){
+    if(!val) return;
+    history.push(val); if(history.length>50) history.shift(); histIdx=history.length;
+    print('<span class="prompt">$</span> <span class="cmd">'+esc(val)+'</span>');
+    const v = val.replace(/^\//,'').toLowerCase().trim();
+    if(v==='help' || v==='?'){ help(); return; }
+    if(v==='clear' || v==='cls'){ output.innerHTML=''; return; }
+    if(v==='telegram' || v==='tg' || v==='t.me'){
+      print('  <span class="output ok">↗ Відкриваю Telegram...</span>');
+      window.open(LINKS.telegram,'_blank','noopener');
+      print('  <span class="output"><a href="'+LINKS.telegram+'" target="_blank" rel="noopener">'+LINKS.telegram+'</a></span>');
+      return;
     }
+    if(v==='email' || v==='mail' || v.includes('@')){
+      if(v.includes('@') && v.includes('.')){
+        const subject = encodeURIComponent('Привіт, Семене!');
+        const body = encodeURIComponent('Привіт! Пишу з твого сайту.\n\n');
+        window.location.href = 'mailto:'+v+'?subject='+subject+'&body='+body;
+        print('  <span class="output ok">✉️ Відкриваю поштовий клієнт для '+esc(v)+'</span>');
+      } else {
+        print('  <span class="output ok">✉️ Відкриваю пошту...</span>');
+        window.open(LINKS.email,'_blank','noopener');
+      }
+      return;
+    }
+    if(v==='github' || v==='gh'){
+      print('  <span class="output ok">↗ Відкриваю GitHub...</span>');
+      window.open(LINKS.github,'_blank','noopener');
+      return;
+    }
+    if(v==='about' || v==='stack' || v==='projects'){
+      const el=document.getElementById(v); if(el) el.scrollIntoView({behavior:'smooth'});
+      print('  <span class="output ok">→ скролю до '+esc(v)+'</span>');
+      return;
+    }
+    print('  <span class="output err">❌ Невідома команда: '+esc(v)+'. Введи help</span>');
+  }
+  input.addEventListener('keydown', e=>{
+    if(e.key==='Enter'){ const v=input.value.trim(); input.value=''; handle(v); }
+    else if(e.key==='ArrowUp'){ e.preventDefault(); if(histIdx>0){ histIdx--; input.value=history[histIdx]; } }
+    else if(e.key==='ArrowDown'){ e.preventDefault(); if(histIdx<history.length-1){ histIdx++; input.value=history[histIdx]; } else { histIdx=history.length; input.value=''; } }
   });
-
-  input.addEventListener('keydown', handle);
-
-  // focus input on click anywhere in terminal
-  term?.addEventListener('click', () => input.focus());
+  hints?.querySelectorAll('button').forEach(b=>{
+    b.addEventListener('click',()=> handle(b.dataset.cmd));
+  });
+  term?.addEventListener('click', ()=> input.focus());
+})();
+(function(){
+  const chips=document.querySelectorAll('.chip[data-tech]');
+  const cards=document.querySelectorAll('.project-card[data-tech]');
+  if(!chips.length||!cards.length) return;
+  function apply(tech){
+    chips.forEach(c=> c.classList.toggle('active', c.dataset.tech===tech));
+    cards.forEach(card=>{
+      const techs=(card.dataset.tech||'').toLowerCase().split(/\s+/);
+      const match=techs.includes(tech);
+      card.classList.toggle('highlight', match);
+      card.classList.toggle('dim', tech && !match);
+      card.querySelectorAll('.project-tags span').forEach(tag=>{
+        tag.classList.toggle('hl', tag.textContent.trim().toLowerCase()===tech);
+      });
+    });
+  }
+  function clear(){
+    chips.forEach(c=>c.classList.remove('active'));
+    cards.forEach(c=>{ c.classList.remove('highlight','dim'); c.querySelectorAll('.project-tags span').forEach(t=>t.classList.remove('hl')); });
+  }
+  chips.forEach(chip=>{
+    chip.addEventListener('mouseenter',()=> apply(chip.dataset.tech.toLowerCase()));
+    chip.addEventListener('mouseleave', clear);
+    chip.addEventListener('focus',()=> apply(chip.dataset.tech.toLowerCase()));
+    chip.addEventListener('blur', clear);
+    chip.tabIndex=0;
+  });
+})();
+(function(){
+  if(isReduced || !matchMedia('(hover:hover)').matches) return;
+  const cards=document.querySelectorAll('.project-card');
+  cards.forEach(card=>{
+    card.addEventListener('mousemove', e=>{
+      const r=card.getBoundingClientRect();
+      const x=(e.clientX - r.left)/r.width - .5;
+      const y=(e.clientY - r.top)/r.height - .5;
+      card.style.transform='perspective(900px) rotateY('+(x*6)+'deg) rotateX('+(-y*6)+'deg) translateY(-3px)';
+    });
+    card.addEventListener('mouseleave',()=>{ card.style.transform=''; });
+  });
 })();
