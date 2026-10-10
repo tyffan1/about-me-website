@@ -132,7 +132,7 @@ navLinks?.querySelectorAll('a').forEach(a => {
   const LINKS = {
     telegram: 'https://t.me/tyffan1',
     github: 'https://github.com/tyffan1',
-    email: 'mailto:tyffan@example.com',
+    email: 'myworkmail2039.com',
   };
   function help(){
     print('  <span class="output">Доступні команди:</span>');
